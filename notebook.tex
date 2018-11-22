@@ -1,0 +1,1828 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{project}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+     IDS Final Project:
+
+Abhishek Patil
+
+Manthan B Y
+
+Monish Prakasan
+
+    \hypertarget{importing-the-necessary-modules}{%
+\subsubsection{Importing the necessary
+modules}\label{importing-the-necessary-modules}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \hypertarget{reading-the-csv-file-and-storing-in-a-pandas-dataframe}{%
+\subsubsection{Reading the CSV file and storing in a pandas
+DataFrame}\label{reading-the-csv-file-and-storing-in-a-pandas-dataframe}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AppleStore.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}  \PY{c+c1}{\PYZsh{}Printing first 5 rows of the dataset}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}           id                                         track\_name  size\_bytes  \textbackslash{}
+        0  281656475                                    PAC-MAN Premium   100788224   
+        1  281796108                          Evernote - stay organized   158578688   
+        2  281940292    WeatherBug - Local Weather, Radar, Maps, Alerts   100524032   
+        3  282614216  eBay: Best App to Buy, Sell, Save! Online Shop{\ldots}   128512000   
+        4  282935706                                              Bible    92774400   
+        
+          currency  price  rating\_count\_tot  rating\_count\_ver  user\_rating  \textbackslash{}
+        0      USD   3.99             21292                26          4.0   
+        1      USD   0.00            161065                26          4.0   
+        2      USD   0.00            188583              2822          3.5   
+        3      USD   0.00            262241               649          4.0   
+        4      USD   0.00            985920              5320          4.5   
+        
+           user\_rating\_ver     ver cont\_rating   prime\_genre  sup\_devices.num  \textbackslash{}
+        0              4.5   6.3.5          4+         Games               38   
+        1              3.5   8.2.2          4+  Productivity               37   
+        2              4.5   5.0.0          4+       Weather               37   
+        3              4.5  5.10.0         12+      Shopping               37   
+        4              5.0   7.5.1          4+     Reference               37   
+        
+           ipadSc\_urls.num  lang.num  vpp\_lic  game\_enab  
+        0                5        10        1          0  
+        1                5        23        1          0  
+        2                5         3        1          0  
+        3                5         9        1          0  
+        4                5        45        1          0  
+\end{Verbatim}
+            
+    Let's See the summary of numerical values in our dataset
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}Getting Summary of the numerical variables}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}                  id    size\_bytes         price  rating\_count\_tot  \textbackslash{}
+        count  1.110000e+04  1.110000e+04  11100.000000      1.110000e+04   
+        mean   9.196595e+08  1.291145e+08      1.119242      8.359482e+03   
+        std    2.575416e+08  3.044624e+08      4.768515      6.129530e+04   
+        min    2.816565e+08  0.000000e+00      0.000000      0.000000e+00   
+        25\%    7.748118e+08  0.000000e+00      0.000000      0.000000e+00   
+        50\%    1.041344e+09  4.249093e+07      0.000000      2.000000e+01   
+        75\%    1.106219e+09  1.246930e+08      0.990000      8.192500e+02   
+        max    1.188524e+09  4.025970e+09    299.990000      2.974676e+06   
+        
+               rating\_count\_ver   user\_rating  user\_rating\_ver  sup\_devices.num  \textbackslash{}
+        count      11100.000000  11100.000000     11100.000000     11100.000000   
+        mean         298.496486      2.286802         2.109550        24.576216   
+        std         3164.394530      2.080899         2.129825        17.621606   
+        min            0.000000      0.000000         0.000000         1.000000   
+        25\%            0.000000      0.000000         0.000000         1.000000   
+        50\%            1.000000      3.000000         2.000000        37.000000   
+        75\%           54.000000      4.500000         4.500000        38.000000   
+        max       177050.000000      5.000000         5.000000        47.000000   
+        
+               ipadSc\_urls.num      lang.num       vpp\_lic  game\_enab  
+        count     11100.000000  11100.000000  11100.000000    11100.0  
+        mean          2.755225      3.875495      0.643874        0.0  
+        std           2.056240      6.719282      0.478875        0.0  
+        min           0.000000      0.000000      0.000000        0.0  
+        25\%           1.000000      1.000000      0.000000        0.0  
+        50\%           2.000000      1.000000      1.000000        0.0  
+        75\%           5.000000      2.000000      1.000000        0.0  
+        max           5.000000     75.000000      1.000000        0.0  
+\end{Verbatim}
+            
+    \hypertarget{cleaning-the-dataset}{%
+\subsection{Cleaning the DataSet}\label{cleaning-the-dataset}}
+
+    
+
+    Converting Size in bytes to MegaBytes
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{df}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{size\PYZus{}bytes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{size\PYZus{}bytes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{/} \PY{l+m+mi}{1048576}
+\end{Verbatim}
+
+
+    Renaming the column heading
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size\PYZus{}bytes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size\PYZus{}mb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{ids} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{track\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    Checking for any duplicate values
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df}\PY{p}{[}\PY{n}{ids}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{ids}\PY{p}{[}\PY{n}{ids}\PY{o}{.}\PY{n}{duplicated}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}                id track\_name  size\_mb currency  price  rating\_count\_tot  \textbackslash{}
+        18      284971781        NaN        0      NaN    0.0                 0   
+        25      286115722        NaN        0      NaN    0.0                 0   
+        29      288091002        NaN        0      NaN    0.0                 0   
+        37      289567151        NaN        0      NaN    0.0                 0   
+        43      291676451        NaN        0      NaN    0.0                 0   
+        44      292242503        NaN        0      NaN    0.0                 0   
+        45      292411902        NaN        0      NaN    0.0                 0   
+        55      294026381        NaN        0      NaN    0.0                 0   
+        77      299147843        NaN        0      NaN    0.0                 0   
+        87      300915900        NaN        0      NaN    0.0                 0   
+        93      302946764        NaN        0      NaN    0.0                 0   
+        97      303579255        NaN        0      NaN    0.0                 0   
+        126     308161582        NaN        0      NaN    0.0                 0   
+        130     308816822        NaN        0      NaN    0.0                 0   
+        142     310947683        NaN        0      NaN    0.0                 0   
+        144     310998312        NaN        0      NaN    0.0                 0   
+        146     311483471        NaN        0      NaN    0.0                 0   
+        148     311691366        NaN        0      NaN    0.0                 0   
+        166     316050001        NaN        0      NaN    0.0                 0   
+        169     316415412        NaN        0      NaN    0.0                 0   
+        173     317911945        NaN        0      NaN    0.0                 0   
+        194     322519527        NaN        0      NaN    0.0                 0   
+        200     324563544        NaN        0      NaN    0.0                 0   
+        204     325533754        NaN        0      NaN    0.0                 0   
+        210     326133287        NaN        0      NaN    0.0                 0   
+        215     326912270        NaN        0      NaN    0.0                 0   
+        217     327104307        NaN        0      NaN    0.0                 0   
+        232     330281895        NaN        0      NaN    0.0                 0   
+        243     332534830        NaN        0      NaN    0.0                 0   
+        255     334855322        NaN        0      NaN    0.0                 0   
+        {\ldots}           {\ldots}        {\ldots}      {\ldots}      {\ldots}    {\ldots}               {\ldots}   
+        11062  1186565879        NaN        0      NaN    0.0                 0   
+        11063  1186595651        NaN        0      NaN    0.0                 0   
+        11064  1186629823        NaN        0      NaN    0.0                 0   
+        11065  1186676039        NaN        0      NaN    0.0                 0   
+        11066  1186688607        NaN        0      NaN    0.0                 0   
+        11067  1186768940        NaN        0      NaN    0.0                 0   
+        11068  1186823929        NaN        0      NaN    0.0                 0   
+        11069  1186823934        NaN        0      NaN    0.0                 0   
+        11070  1186827808        NaN        0      NaN    0.0                 0   
+        11071  1186838260        NaN        0      NaN    0.0                 0   
+        11072  1187074073        NaN        0      NaN    0.0                 0   
+        11074  1187130877        NaN        0      NaN    0.0                 0   
+        11075  1187134186        NaN        0      NaN    0.0                 0   
+        11077  1187282027        NaN        0      NaN    0.0                 0   
+        11079  1187617300        NaN        0      NaN    0.0                 0   
+        11082  1187694189        NaN        0      NaN    0.0                 0   
+        11083  1187739384        NaN        0      NaN    0.0                 0   
+        11084  1187739397        NaN        0      NaN    0.0                 0   
+        11085  1187739816        NaN        0      NaN    0.0                 0   
+        11087  1187785262        NaN        0      NaN    0.0                 0   
+        11089  1187851356        NaN        0      NaN    0.0                 0   
+        11090  1187868071        NaN        0      NaN    0.0                 0   
+        11091  1188043238        NaN        0      NaN    0.0                 0   
+        11092  1188073095        NaN        0      NaN    0.0                 0   
+        11093  1188165982        NaN        0      NaN    0.0                 0   
+        11094  1188183956        NaN        0      NaN    0.0                 0   
+        11095  1188191109        NaN        0      NaN    0.0                 0   
+        11097  1188474007        NaN        0      NaN    0.0                 0   
+        11098  1188482421        NaN        0      NaN    0.0                 0   
+        11099  1188524458        NaN        0      NaN    0.0                 0   
+        
+               rating\_count\_ver  user\_rating  user\_rating\_ver  ver cont\_rating  \textbackslash{}
+        18                    0          0.0              0.0  NaN         NaN   
+        25                    0          0.0              0.0  NaN         NaN   
+        29                    0          0.0              0.0  NaN         NaN   
+        37                    0          0.0              0.0  NaN         NaN   
+        43                    0          0.0              0.0  NaN         NaN   
+        44                    0          0.0              0.0  NaN         NaN   
+        45                    0          0.0              0.0  NaN         NaN   
+        55                    0          0.0              0.0  NaN         NaN   
+        77                    0          0.0              0.0  NaN         NaN   
+        87                    0          0.0              0.0  NaN         NaN   
+        93                    0          0.0              0.0  NaN         NaN   
+        97                    0          0.0              0.0  NaN         NaN   
+        126                   0          0.0              0.0  NaN         NaN   
+        130                   0          0.0              0.0  NaN         NaN   
+        142                   0          0.0              0.0  NaN         NaN   
+        144                   0          0.0              0.0  NaN         NaN   
+        146                   0          0.0              0.0  NaN         NaN   
+        148                   0          0.0              0.0  NaN         NaN   
+        166                   0          0.0              0.0  NaN         NaN   
+        169                   0          0.0              0.0  NaN         NaN   
+        173                   0          0.0              0.0  NaN         NaN   
+        194                   0          0.0              0.0  NaN         NaN   
+        200                   0          0.0              0.0  NaN         NaN   
+        204                   0          0.0              0.0  NaN         NaN   
+        210                   0          0.0              0.0  NaN         NaN   
+        215                   0          0.0              0.0  NaN         NaN   
+        217                   0          0.0              0.0  NaN         NaN   
+        232                   0          0.0              0.0  NaN         NaN   
+        243                   0          0.0              0.0  NaN         NaN   
+        255                   0          0.0              0.0  NaN         NaN   
+        {\ldots}                 {\ldots}          {\ldots}              {\ldots}  {\ldots}         {\ldots}   
+        11062                 0          0.0              0.0  NaN         NaN   
+        11063                 0          0.0              0.0  NaN         NaN   
+        11064                 0          0.0              0.0  NaN         NaN   
+        11065                 0          0.0              0.0  NaN         NaN   
+        11066                 0          0.0              0.0  NaN         NaN   
+        11067                 0          0.0              0.0  NaN         NaN   
+        11068                 0          0.0              0.0  NaN         NaN   
+        11069                 0          0.0              0.0  NaN         NaN   
+        11070                 0          0.0              0.0  NaN         NaN   
+        11071                 0          0.0              0.0  NaN         NaN   
+        11072                 0          0.0              0.0  NaN         NaN   
+        11074                 0          0.0              0.0  NaN         NaN   
+        11075                 0          0.0              0.0  NaN         NaN   
+        11077                 0          0.0              0.0  NaN         NaN   
+        11079                 0          0.0              0.0  NaN         NaN   
+        11082                 0          0.0              0.0  NaN         NaN   
+        11083                 0          0.0              0.0  NaN         NaN   
+        11084                 0          0.0              0.0  NaN         NaN   
+        11085                 0          0.0              0.0  NaN         NaN   
+        11087                 0          0.0              0.0  NaN         NaN   
+        11089                 0          0.0              0.0  NaN         NaN   
+        11090                 0          0.0              0.0  NaN         NaN   
+        11091                 0          0.0              0.0  NaN         NaN   
+        11092                 0          0.0              0.0  NaN         NaN   
+        11093                 0          0.0              0.0  NaN         NaN   
+        11094                 0          0.0              0.0  NaN         NaN   
+        11095                 0          0.0              0.0  NaN         NaN   
+        11097                 0          0.0              0.0  NaN         NaN   
+        11098                 0          0.0              0.0  NaN         NaN   
+        11099                 0          0.0              0.0  NaN         NaN   
+        
+              prime\_genre  sup\_devices.num  ipadSc\_urls.num  lang.num  vpp\_lic  \textbackslash{}
+        18            NaN                1                1         1        0   
+        25            NaN                1                1         1        0   
+        29            NaN                1                1         1        0   
+        37            NaN                1                1         1        0   
+        43            NaN                1                1         1        0   
+        44            NaN                1                1         1        0   
+        45            NaN                1                1         1        0   
+        55            NaN                1                1         1        0   
+        77            NaN                1                1         1        0   
+        87            NaN                1                1         1        0   
+        93            NaN                1                1         1        0   
+        97            NaN                1                1         1        0   
+        126           NaN                1                1         1        0   
+        130           NaN                1                1         1        0   
+        142           NaN                1                1         1        0   
+        144           NaN                1                1         1        0   
+        146           NaN                1                1         1        0   
+        148           NaN                1                1         1        0   
+        166           NaN                1                1         1        0   
+        169           NaN                1                1         1        0   
+        173           NaN                1                1         1        0   
+        194           NaN                1                1         1        0   
+        200           NaN                1                1         1        0   
+        204           NaN                1                1         1        0   
+        210           NaN                1                1         1        0   
+        215           NaN                1                1         1        0   
+        217           NaN                1                1         1        0   
+        232           NaN                1                1         1        0   
+        243           NaN                1                1         1        0   
+        255           NaN                1                1         1        0   
+        {\ldots}           {\ldots}              {\ldots}              {\ldots}       {\ldots}      {\ldots}   
+        11062         NaN                1                1         1        0   
+        11063         NaN                1                1         1        0   
+        11064         NaN                1                1         1        0   
+        11065         NaN                1                1         1        0   
+        11066         NaN                1                1         1        0   
+        11067         NaN                1                1         1        0   
+        11068         NaN                1                1         1        0   
+        11069         NaN                1                1         1        0   
+        11070         NaN                1                1         1        0   
+        11071         NaN                1                1         1        0   
+        11072         NaN                1                1         1        0   
+        11074         NaN                1                1         1        0   
+        11075         NaN                1                1         1        0   
+        11077         NaN                1                1         1        0   
+        11079         NaN                1                1         1        0   
+        11082         NaN                1                1         1        0   
+        11083         NaN                1                1         1        0   
+        11084         NaN                1                1         1        0   
+        11085         NaN                1                1         1        0   
+        11087         NaN                1                1         1        0   
+        11089         NaN                1                1         1        0   
+        11090         NaN                1                1         1        0   
+        11091         NaN                1                1         1        0   
+        11092         NaN                1                1         1        0   
+        11093         NaN                1                1         1        0   
+        11094         NaN                1                1         1        0   
+        11095         NaN                1                1         1        0   
+        11097         NaN                1                1         1        0   
+        11098         NaN                1                1         1        0   
+        11099         NaN                1                1         1        0   
+        
+               game\_enab  
+        18             0  
+        25             0  
+        29             0  
+        37             0  
+        43             0  
+        44             0  
+        45             0  
+        55             0  
+        77             0  
+        87             0  
+        93             0  
+        97             0  
+        126            0  
+        130            0  
+        142            0  
+        144            0  
+        146            0  
+        148            0  
+        166            0  
+        169            0  
+        173            0  
+        194            0  
+        200            0  
+        204            0  
+        210            0  
+        215            0  
+        217            0  
+        232            0  
+        243            0  
+        255            0  
+        {\ldots}          {\ldots}  
+        11062          0  
+        11063          0  
+        11064          0  
+        11065          0  
+        11066          0  
+        11067          0  
+        11068          0  
+        11069          0  
+        11070          0  
+        11071          0  
+        11072          0  
+        11074          0  
+        11075          0  
+        11077          0  
+        11079          0  
+        11082          0  
+        11083          0  
+        11084          0  
+        11085          0  
+        11087          0  
+        11089          0  
+        11090          0  
+        11091          0  
+        11092          0  
+        11093          0  
+        11094          0  
+        11095          0  
+        11097          0  
+        11098          0  
+        11099          0  
+        
+        [3907 rows x 17 columns]
+\end{Verbatim}
+            
+    We may observe that most of the duplicated values are also null values
+
+Removing the duplicated values
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{n}{subset} \PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{track\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{keep} \PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{df}\PY{p}{[}\PY{n}{ids}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{ids}\PY{p}{[}\PY{n}{ids}\PY{o}{.}\PY{n}{duplicated}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/home/manthangowda/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:1: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  """Entry point for launching an IPython kernel.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} Empty DataFrame
+         Columns: [id, track\_name, size\_mb, currency, price, rating\_count\_tot, rating\_count\_ver, user\_rating, user\_rating\_ver, ver, cont\_rating, prime\_genre, sup\_devices.num, ipadSc\_urls.num, lang.num, vpp\_lic, game\_enab]
+         Index: []
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}                id                                         track\_name  size\_mb  \textbackslash{}
+         0       281656475                                    PAC-MAN Premium       96   
+         1       281796108                          Evernote - stay organized      151   
+         2       281940292    WeatherBug - Local Weather, Radar, Maps, Alerts       95   
+         3       282614216  eBay: Best App to Buy, Sell, Save! Online Shop{\ldots}      122   
+         4       282935706                                              Bible       88   
+         5       283619399                                   Shanghai Mahjong        9   
+         6       283646709             PayPal - Send and request money safely      217   
+         7       284035177                            Pandora - Music \& Radio      124   
+         8       284666222                        PCalc - The Best Calculator       46   
+         9       284736660                                        Ms. PAC-MAN       66   
+         10      284791396                          Solitaire by MobilityWare       47   
+         11      284815117                                   SCRABBLE Premium      217   
+         12      284815942               Google – Search made just for mobile      171   
+         13      284847138                   Bank of America - Mobile Banking      153   
+         14      284862767                                           FreeCell       52   
+         15      284876795             TripAdvisor Hotels Flights Restaurants      198   
+         16      284882215                                           Facebook      371   
+         17      284910350     Yelp - Nearby Restaurants, Shopping \& Services      159   
+         19      284993459  Shazam - Discover music, artists, videos \& lyrics      140   
+         20      285005463                      Crash Bandicoot Nitro Kart 3D       10   
+         21      285946052                                             iQuran       67   
+         22      285994151                                        :) Sudoku +        5   
+         23      286058814    Yahoo Sports - Teams, Scores, News \& Highlights      124   
+         24      286070473                          Mileage Log | Fahrtenbuch       67   
+         26      286799607                        Cleartune - Chromatic Tuner       10   
+         27      286906691          Lifesum – Inspiring healthy lifestyle app      179   
+         28      286911400                                           Hangman.        4   
+         30      288113403      iTranslate - Language Translator \& Dictionary      274   
+         31      288120394                                           TouchOSC        4   
+         32      288419283                                         RadarScope      164   
+         {\ldots}           {\ldots}                                                {\ldots}      {\ldots}   
+         10994  1182265441                      脱出ゲーム　わたしをみつけて　-おじいさんとわたしの物語-      169   
+         10997  1182331762                      Escape from the frigid Igloo.       85   
+         11001  1182568288        Talking Santa - Video santa claus calls you       31   
+         11009  1183234072                                          CTFxCmoji       24   
+         11012  1183260922                    Room Escape Game - Santa's Room      136   
+         11015  1183548754                               Rescue the Enchanter      231   
+         11018  1183709176                                 My Diary - 你的名字非官方       17   
+         11021  1183856228  VR Thrills: Roller Coaster 360 (Google Cardboard)      161   
+         11023  1183986102   Santa Kids Hair Salon - Christmas Makeover Games       61   
+         11026  1184711626                                 Human Juggling Cup      175   
+         11030  1184800011                           Again - room escape game       32   
+         11032  1185209084                                  Saloons Unleashed      312   
+         11034  1185328193             Fam — Group video calling for iMessage      108   
+         11035  1185365336                   Laurie Hernandez the Human Emoji       89   
+         11037  1185428381                                               剑倚手游      169   
+         11039  1185538497                                  camera for filter        8   
+         11040  1185580782                                    Survivalcraft 2       54   
+         11041  1185731859                                    剑客情缘-高爆率高掉落天天疯玩      163   
+         11042  1185777521                                     问仙奇遇-新玩法新套装嗨到爆      198   
+         11049  1186108496                 脱出ゲーム - 書道教室 -  "漢字"の謎に満ちた部屋からの 脱出       81   
+         11050  1186126548                          Escape Game: illumination       49   
+         11059  1186384912       Demolition Derby Virtual Reality (VR) Racing      160   
+         11073  1187128255                         飞刀传奇-动作武侠热血江湖即时PK传奇（登录爆金装）      512   
+         11076  1187279979                       Add-Ons Studio for Minecraft       21   
+         11078  1187282363                         Plead the Fifth - The Game       26   
+         11080  1187617475                                              Kubik      120   
+         11081  1187682390                                  VR Roller-Coaster      115   
+         11086  1187779532              Bret Michaels Emojis + Lyric Keyboard      106   
+         11088  1187838770          VR Roller Coaster World - Virtual Reality       92   
+         11096  1188375727                       Escape the Sweet Shop Series       86   
+         
+               currency  price  rating\_count\_tot  rating\_count\_ver  user\_rating  \textbackslash{}
+         0          USD   3.99             21292                26          4.0   
+         1          USD   0.00            161065                26          4.0   
+         2          USD   0.00            188583              2822          3.5   
+         3          USD   0.00            262241               649          4.0   
+         4          USD   0.00            985920              5320          4.5   
+         5          USD   0.99              8253              5516          4.0   
+         6          USD   0.00            119487               879          4.0   
+         7          USD   0.00           1126879              3594          4.0   
+         8          USD   9.99              1117                 4          4.5   
+         9          USD   3.99              7885                40          4.0   
+         10         USD   4.99             76720              4017          4.5   
+         11         USD   7.99            105776               166          3.5   
+         12         USD   0.00            479440               203          3.5   
+         13         USD   0.00            119773              2336          3.5   
+         14         USD   4.99              6340               668          4.5   
+         15         USD   0.00             56194                87          4.0   
+         16         USD   0.00           2974676               212          3.5   
+         17         USD   0.00            223885              3726          4.0   
+         19         USD   0.00            402925               136          4.0   
+         20         USD   2.99             31456              4178          4.0   
+         21         USD   1.99              2929               966          4.5   
+         22         USD   2.99             11447               781          5.0   
+         23         USD   0.00            137951               131          4.0   
+         24         USD   5.99                 8                 0          4.5   
+         26         USD   3.99              3241               297          4.0   
+         27         USD   0.00              5795                12          3.5   
+         28         USD   0.00             42316               248          3.0   
+         30         USD   0.00            123215                25          3.5   
+         31         USD   4.99               782                 7          4.0   
+         32         USD   9.99              3449                23          4.0   
+         {\ldots}        {\ldots}    {\ldots}               {\ldots}               {\ldots}          {\ldots}   
+         10994      USD   0.00                 1                 1          1.0   
+         10997      USD   0.00                 3                 3          4.0   
+         11001      USD   2.99                 9                 3          3.0   
+         11009      USD   0.00                39                 4          5.0   
+         11012      USD   0.00                10                10          5.0   
+         11015      USD   3.99                55                29          4.5   
+         11018      USD   0.99                 0                 0          0.0   
+         11021      USD   0.00                14                 4          4.0   
+         11023      USD   0.00                41                19          4.5   
+         11026      USD   0.00                 0                 0          0.0   
+         11030      USD   0.00                11                 8          4.0   
+         11032      USD   0.99                 0                 0          0.0   
+         11034      USD   0.00               279                 5          3.5   
+         11035      USD   0.00                26                 3          5.0   
+         11037      USD   0.99                 0                 0          0.0   
+         11039      USD   0.00                 0                 0          0.0   
+         11040      USD   3.99               292               292          4.0   
+         11041      USD   0.00                 0                 0          0.0   
+         11042      USD   0.99                 0                 0          0.0   
+         11049      USD   0.00                 1                 1          2.0   
+         11050      USD   0.00                23                23          4.5   
+         11059      USD   0.00                18                18          4.0   
+         11073      USD   0.99                 0                 0          0.0   
+         11076      USD   2.99                97                97          3.0   
+         11078      USD   2.99                11                 0          4.0   
+         11080      USD   0.00               142                75          4.5   
+         11081      USD   0.00                30                30          4.5   
+         11086      USD   1.99                15                 0          4.5   
+         11088      USD   0.00                85                32          4.5   
+         11096      USD   0.00                 3                 3          5.0   
+         
+                user\_rating\_ver       ver cont\_rating        prime\_genre  \textbackslash{}
+         0                  4.5     6.3.5          4+              Games   
+         1                  3.5     8.2.2          4+       Productivity   
+         2                  4.5     5.0.0          4+            Weather   
+         3                  4.5    5.10.0         12+           Shopping   
+         4                  5.0     7.5.1          4+          Reference   
+         5                  4.0       1.8          4+              Games   
+         6                  4.5    6.12.0          4+            Finance   
+         7                  4.5     8.4.1         12+              Music   
+         8                  5.0     3.6.6          4+          Utilities   
+         9                  4.0     4.0.4          4+              Games   
+         10                 4.5    4.10.1          4+              Games   
+         11                 2.5    5.19.0          4+              Games   
+         12                 4.0      27.0         17+          Utilities   
+         13                 4.5     7.3.8          4+            Finance   
+         14                 4.5     4.0.3          4+              Games   
+         15                 3.5      21.1          4+             Travel   
+         16                 3.5      95.0          4+  Social Networking   
+         17                 4.5   11.15.0         12+             Travel   
+         19                 4.5    11.0.3         12+              Music   
+         20                 3.5     1.0.0          4+              Games   
+         21                 4.5       3.3          4+          Reference   
+         22                 5.0     5.2.6          4+              Games   
+         23                 4.5       6.9          4+             Sports   
+         24                 0.0     9.0.5          4+           Business   
+         26                 4.0     2.1.3          4+              Music   
+         27                 4.0     8.4.1          4+   Health \& Fitness   
+         28                 3.5     2.0.6          9+              Games   
+         30                 5.0    10.5.4          4+       Productivity   
+         31                 3.5     1.9.8          4+              Music   
+         32                 4.5     3.4.1          4+            Weather   
+         {\ldots}                {\ldots}       {\ldots}         {\ldots}                {\ldots}   
+         10994              1.0     1.0.1          4+              Games   
+         10997              4.0     1.0.1          4+              Games   
+         11001              3.5     1.0.1          4+      Entertainment   
+         11009              5.0       1.3          9+  Social Networking   
+         11012              5.0       1.0          4+              Games   
+         11015              4.5       1.4          4+              Games   
+         11018              0.0       1.1          4+          Utilities   
+         11021              3.5     1.3.0          4+              Games   
+         11023              4.5       1.3          4+              Games   
+         11026              0.0     1.0.1          4+              Games   
+         11030              4.0     1.1.0          4+              Games   
+         11032              0.0       1.1          4+              Games   
+         11034              3.0    0.6.41          4+  Social Networking   
+         11035              5.0     1.0.5          9+          Utilities   
+         11037              0.0       1.0          9+              Games   
+         11039              0.0     1.0.3          4+      Photo \& Video   
+         11040              4.0  2.0.20.1          9+              Games   
+         11041              0.0       1.0          9+              Games   
+         11042              0.0       1.0          9+              Games   
+         11049              2.0     1.0.1          4+              Games   
+         11050              4.5       1.0          4+              Games   
+         11059              4.0     1.0.0         12+              Games   
+         11073              0.0     2.1.0          9+              Games   
+         11076              3.0       1.0          4+              Games   
+         11078              0.0     1.1.1         17+              Games   
+         11080              4.5       1.3          4+              Games   
+         11081              4.5       0.9          4+              Games   
+         11086              0.0     1.0.2          9+          Utilities   
+         11088              4.5    1.0.15         12+              Games   
+         11096              5.0       1.0          4+              Games   
+         
+                sup\_devices.num  ipadSc\_urls.num  lang.num  vpp\_lic  game\_enab  
+         0                   38                5        10        1          0  
+         1                   37                5        23        1          0  
+         2                   37                5         3        1          0  
+         3                   37                5         9        1          0  
+         4                   37                5        45        1          0  
+         5                   47                5         1        1          0  
+         6                   37                0        19        1          0  
+         7                   37                4         1        1          0  
+         8                   37                5         1        1          0  
+         9                   38                0        10        1          0  
+         10                  38                4        11        1          0  
+         11                  37                0         6        1          0  
+         12                  37                4        33        1          0  
+         13                  37                0         2        1          0  
+         14                  38                5         2        1          0  
+         15                  37                1        26        1          0  
+         16                  37                1        29        1          0  
+         17                  37                5        18        1          0  
+         19                  37                3        16        1          0  
+         20                  47                0         1        1          0  
+         21                  43                0         2        1          0  
+         22                  40                5         1        1          0  
+         23                  37                2         6        1          0  
+         24                  37                5         3        1          0  
+         26                  43                2        10        1          0  
+         27                  37                5        11        1          0  
+         28                  38                0         1        1          0  
+         30                  37                5        23        1          0  
+         31                  43                1         1        1          0  
+         32                  37                5         1        1          0  
+         {\ldots}                {\ldots}              {\ldots}       {\ldots}      {\ldots}        {\ldots}  
+         10994               38                4         1        1          0  
+         10997               38                5         1        1          0  
+         11001               37                0        31        1          0  
+         11009               37                1         1        1          0  
+         11012               40                0         1        1          0  
+         11015               40                5         1        1          0  
+         11018               37                0         1        1          0  
+         11021               37                5         1        1          0  
+         11023               37                5        25        1          0  
+         11026               40                4         1        1          0  
+         11030               37                5         1        1          0  
+         11032               37                5         1        1          0  
+         11034               37                4         1        1          0  
+         11035               37                4         1        1          0  
+         11037               40                5         0        1          0  
+         11039               37                0         1        1          0  
+         11040               40                5         1        1          0  
+         11041               40                5         0        1          0  
+         11042               38                5         1        1          0  
+         11049               38                5         1        1          0  
+         11050               37                5         2        1          0  
+         11059               38                4         1        1          0  
+         11073               38                5         1        1          0  
+         11076               37                5         3        1          0  
+         11078               37                0         1        1          0  
+         11080               38                5         1        1          0  
+         11081               38                0         1        1          0  
+         11086               37                1         1        1          0  
+         11088               38                0         2        1          0  
+         11096               40                0         2        1          0  
+         
+         [7193 rows x 17 columns]
+\end{Verbatim}
+            
+    We may observe that all of the dupliacted values are removed.
+
+Now let's check for any null values in the dataset
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} False
+\end{Verbatim}
+            
+    We may Observe that all the null values are removed in the previous step
+only and no values are there.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}           id                                         track\_name  size\_mb  \textbackslash{}
+         0  281656475                                    PAC-MAN Premium       96   
+         1  281796108                          Evernote - stay organized      151   
+         2  281940292    WeatherBug - Local Weather, Radar, Maps, Alerts       95   
+         3  282614216  eBay: Best App to Buy, Sell, Save! Online Shop{\ldots}      122   
+         4  282935706                                              Bible       88   
+         
+           currency  price  rating\_count\_tot  rating\_count\_ver  user\_rating  \textbackslash{}
+         0      USD   3.99             21292                26          4.0   
+         1      USD   0.00            161065                26          4.0   
+         2      USD   0.00            188583              2822          3.5   
+         3      USD   0.00            262241               649          4.0   
+         4      USD   0.00            985920              5320          4.5   
+         
+            user\_rating\_ver     ver cont\_rating   prime\_genre  sup\_devices.num  \textbackslash{}
+         0              4.5   6.3.5          4+         Games               38   
+         1              3.5   8.2.2          4+  Productivity               37   
+         2              4.5   5.0.0          4+       Weather               37   
+         3              4.5  5.10.0         12+      Shopping               37   
+         4              5.0   7.5.1          4+     Reference               37   
+         
+            ipadSc\_urls.num  lang.num  vpp\_lic  game\_enab  
+         0                5        10        1          0  
+         1                5        23        1          0  
+         2                5         3        1          0  
+         3                5         9        1          0  
+         4                5        45        1          0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} 7193
+\end{Verbatim}
+            
+    Visualizing price distribution of paid apps
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{price} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ free apps in the store}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{price} \PY{o}{\PYZgt{}} \PY{l+m+mi}{50}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ expensive apps in the store}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Apps having price greater than 50\PYZdl{} are considered as expensive apps. They may be considered as outliers for visualization}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Expensive apps constitute }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{price} \PY{o}{\PYZgt{}} \PY{l+m+mi}{50}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{price}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)} \PY{o}{+}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s2}{f the total Apps}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There are 4052 free apps in the store
+There are 7 expensive apps in the store
+Apps having price greater than 50\$ are considered as expensive apps. They may be considered as outliers for visualization
+Expensive apps constitute 0.09731683581259558 \% of the total Apps
+
+    \end{Verbatim}
+
+    Expensive apps are in less number. Let's print them
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{outlier}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{price}\PY{o}{\PYZgt{}}\PY{l+m+mi}{50}\PY{p}{]}
+         \PY{n}{outlier}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}              id                                        track\_name  size\_mb  \textbackslash{}
+         128   308368164                    Proloquo2Go - Symbol-based AAC      690   
+         183   320279293                                    NAVIGON Europe      137   
+         1323  491998279                          Articulation Station Pro      406   
+         1713  551215116                               LAMP Words For Life      556   
+         2540  700440156                      Articulation Test Center Pro      166   
+         3042  849732663                                       KNFB Reader      101   
+         3898  946930094  FineScanner Pro - PDF Document Scanner App + OCR       61   
+         
+              currency   price  rating\_count\_tot  rating\_count\_ver  user\_rating  \textbackslash{}
+         128       USD  249.99               773                10          4.0   
+         183       USD   74.99               927                 3          3.5   
+         1323      USD   59.99               294               130          4.5   
+         1713      USD  299.99                41                 0          4.0   
+         2540      USD   59.99                29                 0          4.5   
+         3042      USD   99.99                71                 0          4.5   
+         3898      USD   59.99               100                 4          4.0   
+         
+               user\_rating\_ver    ver cont\_rating   prime\_genre  sup\_devices.num  \textbackslash{}
+         128               3.5  5.0.1          4+     Education               37   
+         183               2.5   2.17          4+    Navigation               37   
+         1323              5.0  2.2.3          4+     Education               38   
+         1713              0.0  1.5.5          4+     Education               24   
+         2540              0.0    2.6          4+     Education               24   
+         3042              0.0  2.7.3          4+  Productivity               37   
+         3898              4.5  6.2.5          4+      Business               37   
+         
+               ipadSc\_urls.num  lang.num  vpp\_lic  game\_enab  
+         128                 5         3        1          0  
+         183                 2        21        1          0  
+         1323                5         1        1          0  
+         1713                5         1        1          0  
+         2540                5         1        1          0  
+         3042                5        14        1          0  
+         3898                5        12        1          0  
+\end{Verbatim}
+            
+    Now negletting the outliers ( price \textgreater{} 50 )
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{paidapps} \PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{price}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{price}\PY{o}{\PYZlt{}}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         \PY{n}{paidapps}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}                  id      size\_mb        price  rating\_count\_tot  \textbackslash{}
+         count  3.134000e+03  3134.000000  3134.000000       3134.000000   
+         mean   8.170940e+08   252.345884     3.675386       4046.844288   
+         std    2.801736e+08   459.314039     3.791560      25897.579783   
+         min    2.816565e+08     0.000000     0.990000          0.000000   
+         25\%    5.459294e+08    35.000000     1.990000         31.000000   
+         50\%    9.223426e+08    87.000000     2.990000        193.000000   
+         75\%    1.067207e+09   222.000000     4.990000       1337.500000   
+         max    1.187780e+09  3839.000000    49.990000     698516.000000   
+         
+                rating\_count\_ver  user\_rating  user\_rating\_ver  sup\_devices.num  \textbackslash{}
+         count        3134.00000  3134.000000      3134.000000      3134.000000   
+         mean          320.25335     3.720006         3.506541        37.284620   
+         std          3625.51654     1.312679         1.619987         4.545971   
+         min             0.00000     0.000000         0.000000        11.000000   
+         25\%             3.00000     3.500000         3.000000        37.000000   
+         50\%            23.00000     4.000000         4.000000        38.000000   
+         75\%           111.00000     4.500000         4.500000        40.000000   
+         max        177050.00000     5.000000         5.000000        47.000000   
+         
+                ipadSc\_urls.num     lang.num      vpp\_lic  game\_enab  
+         count      3134.000000  3134.000000  3134.000000     3134.0  
+         mean          3.862476     5.044990     0.990747        0.0  
+         std           1.901813     7.073204     0.095764        0.0  
+         min           0.000000     0.000000     0.000000        0.0  
+         25\%           4.000000     1.000000     1.000000        0.0  
+         50\%           5.000000     1.000000     1.000000        0.0  
+         75\%           5.000000     7.000000     1.000000        0.0  
+         max           5.000000    58.000000     1.000000        0.0  
+\end{Verbatim}
+            
+    Maximum and Minimum price
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Max price: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{paidapps}\PY{o}{.}\PY{n}{price}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Min price: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{paidapps}\PY{o}{.}\PY{n}{price}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Max price: 49.99
+Min price: 0.99
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seaborn\PYZhy{}bright}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  \PY{c+c1}{\PYZsh{} To list avaliable styles: print(plt.style.available)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{paidapps}\PY{o}{.}\PY{n}{price}\PY{p}{,}\PY{n}{log}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}  \PY{c+c1}{\PYZsh{}log scale for better visualization}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price distribution of apps (Log scale)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Frequency Log scale}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Price Distributions in (\PYZdl{}) }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Visual price distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{stripplot}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{paidapps}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{jitter}\PY{o}{=} \PY{k+kc}{True}\PY{p}{,}\PY{n}{orient} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h}\PY{l+s+s1}{\PYZsq{}} \PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Insights
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Count of paid apps is exponentially decreases as the price increases
+\item
+  Very few apps have been priced above 30 \$. So if you are building the
+  app better to keep the price below 30\$
+\end{enumerate}
+
+    Effects of category on price distribution
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{yrange} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{]}
+         \PY{n}{fsize} \PY{o}{=}\PY{l+m+mi}{15}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{yrange}\PY{p}{)}
+         \PY{n}{games} \PY{o}{=} \PY{n}{paidapps}\PY{p}{[}\PY{n}{paidapps}\PY{o}{.}\PY{n}{prime\PYZus{}genre}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Games}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{stripplot}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{games}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{jitter}\PY{o}{=} \PY{k+kc}{True} \PY{p}{,} \PY{n}{orient} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deeppink}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Games}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{n}{fsize}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{yrange}\PY{p}{)}
+         \PY{n}{ent} \PY{o}{=} \PY{n}{paidapps}\PY{p}{[}\PY{n}{paidapps}\PY{o}{.}\PY{n}{prime\PYZus{}genre}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entertainment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{stripplot}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{ent}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{jitter}\PY{o}{=} \PY{k+kc}{True} \PY{p}{,}\PY{n}{orient} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{darkorange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Entertainment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{n}{fsize}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{yrange}\PY{p}{)}
+         \PY{n}{edu} \PY{o}{=} \PY{n}{paidapps}\PY{p}{[}\PY{n}{paidapps}\PY{o}{.}\PY{n}{prime\PYZus{}genre}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Education}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{stripplot}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{edu}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{jitter}\PY{o}{=} \PY{k+kc}{True} \PY{p}{,}\PY{n}{orient} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h}\PY{l+s+s1}{\PYZsq{}} \PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deepskyblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Education}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{n}{fsize}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{yrange}\PY{p}{)}
+         \PY{n}{pv} \PY{o}{=} \PY{n}{paidapps}\PY{p}{[}\PY{n}{paidapps}\PY{o}{.}\PY{n}{prime\PYZus{}genre}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Photo \PYZam{} Video}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{stripplot}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{pv}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{jitter}\PY{o}{=} \PY{k+kc}{True}  \PY{p}{,}\PY{n}{orient} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mediumorchid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Photo \PYZam{} Video}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{n}{fsize}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{insights}{%
+\subsubsection{Insights}\label{insights}}
+
+\begin{itemize}
+\tightlist
+\item
+  Paid gaming apps are highly priced and distribution extends till 25 \$
+\item
+  Paid Entertainment apps have a lower price range
+\item
+  Highly priced apps are mostly dominated by Games,where as medium
+  pricing range has both games and Educational apps.
+\end{itemize}
+
+    Free vs Paid Apps
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{There are total of }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{prime\PYZus{}genre}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ categories which is little too much}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{So we can limit our categories to 5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There are total of 23 categories which is little too much
+So we can limit our categories to 5
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} reducing the number of categories}
+         
+         \PY{n}{s} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{prime\PYZus{}genre}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}
+         \PY{k}{def} \PY{n+nf}{categ}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{x} \PY{o+ow}{in} \PY{n}{s}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{x}
+             \PY{k}{else} \PY{p}{:} 
+                 \PY{k}{return} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Others}\PY{l+s+s2}{\PYZdq{}}
+         
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{broad\PYZus{}genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{prime\PYZus{}genre}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x} \PY{p}{:} \PY{n}{categ}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{free} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{price}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{broad\PYZus{}genre}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}
+         \PY{n}{paid} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{price}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{broad\PYZus{}genre}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}
+         \PY{n}{total} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{broad\PYZus{}genre}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}
+         \PY{n}{free}\PY{o}{.}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{free}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{paid}\PY{o}{.}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{paid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{total}\PY{o}{.}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{dist} \PY{o}{=} \PY{n}{free}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{paid}\PY{p}{)}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{total}\PY{p}{)} \PY{c+c1}{\PYZsh{} joining the individual columns}
+         \PY{n}{dist} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{paid\PYZus{}per}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dist}\PY{o}{.}\PY{n}{paid}\PY{o}{*}\PY{l+m+mi}{100}\PY{o}{/}\PY{n}{dist}\PY{o}{.}\PY{n}{total}
+         \PY{n}{dist} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{free\PYZus{}per}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dist}\PY{o}{.}\PY{n}{free}\PY{o}{*}\PY{l+m+mi}{100}\PY{o}{/}\PY{n}{dist}\PY{o}{.}\PY{n}{total}
+         \PY{n}{dist}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}                free  paid  total   paid\_per   free\_per
+         Education       132   321    453  70.860927  29.139073
+         Entertainment   334   201    535  37.570093  62.429907
+         Games          2253  1605   3858  41.601866  58.398134
+         Others         1166   832   1998  41.641642  58.358358
+         Photo \& Video   167   182    349  52.148997  47.851003
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{list\PYZus{}free}\PY{o}{=} \PY{n}{dist}\PY{o}{.}\PY{n}{free\PYZus{}per}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{tuple\PYZus{}free} \PY{o}{=} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{list\PYZus{}free}\PY{p}{)}
+         \PY{n}{tuple\PYZus{}paidapps} \PY{o}{=} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{dist}\PY{o}{.}\PY{n}{paid\PYZus{}per}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{N}\PY{o}{=}\PY{l+m+mi}{5}
+         \PY{n}{ind} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{p}{)}    \PY{c+c1}{\PYZsh{} the x locations for the groups}
+         \PY{n}{width} \PY{o}{=}\PY{l+m+mf}{0.56}   \PY{c+c1}{\PYZsh{} the width of the bars: can also be len(x) sequence}
+         
+         \PY{n}{p1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{tuple\PYZus{}free}\PY{p}{,} \PY{n}{width}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}45cea2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{p2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{ind}\PY{p}{,} \PY{n}{tuple\PYZus{}paidapps}\PY{p}{,} \PY{n}{width}\PY{p}{,}\PY{n}{bottom}\PY{o}{=}\PY{n}{tuple\PYZus{}free}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}fdd470}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{ind}\PY{p}{,}\PY{n+nb}{tuple}\PY{p}{(}\PY{n}{dist}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)} \PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{n}{p1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{p2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{free}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{paid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} for pie chart}
+         \PY{n}{pies} \PY{o}{=} \PY{n}{dist}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{free\PYZus{}per}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{paid\PYZus{}per}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{pies}\PY{o}{.}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{free }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{paid }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{pies}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{pie}\PY{p}{(}\PY{n}{subplots}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,}\PY{n}{colors}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}45cea2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}fdd470}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<Figure size 1080x576 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{insights}{%
+\subsubsection{Insights}\label{insights}}
+
+\begin{itemize}
+\tightlist
+\item
+  Education has significant \% of Paid apps.
+\item
+  On the contrary - Entertainment category hosts high \% of free apps
+\end{itemize}
+
+    Are ``Paid Apps'' worth the money?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k}{def} \PY{n+nf}{paid}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{x}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Paid}\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{else} \PY{p}{:}
+                 \PY{k}{return}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Free}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{price}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x} \PY{p}{:} \PY{n}{paid}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}                id                                 track\_name  size\_mb  \textbackslash{}
+         11080  1187617475                                      Kubik      120   
+         11081  1187682390                          VR Roller-Coaster      115   
+         11086  1187779532      Bret Michaels Emojis + Lyric Keyboard      106   
+         11088  1187838770  VR Roller Coaster World - Virtual Reality       92   
+         11096  1188375727               Escape the Sweet Shop Series       86   
+         
+               currency  price  rating\_count\_tot  rating\_count\_ver  user\_rating  \textbackslash{}
+         11080      USD   0.00               142                75          4.5   
+         11081      USD   0.00                30                30          4.5   
+         11086      USD   1.99                15                 0          4.5   
+         11088      USD   0.00                85                32          4.5   
+         11096      USD   0.00                 3                 3          5.0   
+         
+                user\_rating\_ver     ver cont\_rating prime\_genre  sup\_devices.num  \textbackslash{}
+         11080              4.5     1.3          4+       Games               38   
+         11081              4.5     0.9          4+       Games               38   
+         11086              0.0   1.0.2          9+   Utilities               37   
+         11088              4.5  1.0.15         12+       Games               38   
+         11096              5.0     1.0          4+       Games               40   
+         
+                ipadSc\_urls.num  lang.num  vpp\_lic  game\_enab broad\_genre category  
+         11080                5         1        1          0       Games     Free  
+         11081                0         1        1          0       Games     Free  
+         11086                1         1        1          0      Others     Paid  
+         11088                0         2        1          0       Games     Free  
+         11096                0         2        1          0       Games     Free  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Distribution of User ratings}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{violinplot}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{y} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}rating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{broad\PYZus{}genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{n}{vertical}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{kde}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}\PY{n}{split}\PY{o}{=}\PY{k+kc}{True} \PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}
+                        \PY{n}{scale} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}fdd470}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}45cea2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rating (0\PYZhy{}5)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/home/manthangowda/anaconda3/lib/python3.6/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{how-are-the-apps-distributed-category-wise-can-we-split-by-paid-category}{%
+\subsection{How are the apps distributed category wise ? can we split by
+paid category
+?}\label{how-are-the-apps-distributed-category-wise-can-we-split-by-paid-category}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{BlueOrangeWapang} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}fc910d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}fcb13e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}239cd3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}1674b1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}ed6d50}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{label\PYZus{}names}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{broad\PYZus{}genre}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}
+         \PY{n}{size} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{broad\PYZus{}genre}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{my\PYZus{}circle}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{Circle}\PY{p}{(} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{pie}\PY{p}{(}\PY{n}{size}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{label\PYZus{}names}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{n}{BlueOrangeWapang}\PY{p}{)}
+         \PY{n}{p}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{gcf}\PY{p}{(}\PY{p}{)}
+         \PY{n}{p}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}artist}\PY{p}{(}\PY{n}{my\PYZus{}circle}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{f}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{dist}\PY{o}{.}\PY{n}{free}\PY{o}{.}\PY{n}{values}\PY{p}{,}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{p}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{dist}\PY{o}{.}\PY{n}{paid}\PY{o}{.}\PY{n}{values}\PY{p}{,}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{final} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{f}\PY{p}{,}\PY{n}{p}\PY{p}{]}\PY{p}{,}\PY{n}{names}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{labels}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{final}\PY{o}{.}\PY{n}{num}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+         \PY{n}{group\PYZus{}names}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{broad\PYZus{}genre}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{index}
+         \PY{n}{group\PYZus{}size}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{broad\PYZus{}genre}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{h} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Free}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Paid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{subgroup\PYZus{}names}\PY{o}{=} \PY{l+m+mi}{5}\PY{o}{*}\PY{n}{h}
+         \PY{n}{sub}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}45cea2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}fdd470}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{subcolors}\PY{o}{=} \PY{l+m+mi}{5}\PY{o}{*}\PY{n}{sub}
+         \PY{n}{subgroup\PYZus{}size}\PY{o}{=}\PY{n}{final}\PY{o}{.}\PY{n}{num}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{} First Ring (outside)}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{mypie}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{pie}\PY{p}{(}\PY{n}{group\PYZus{}size}\PY{p}{,} \PY{n}{radius}\PY{o}{=}\PY{l+m+mf}{2.5}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{group\PYZus{}names}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{n}{BlueOrangeWapang}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{setp}\PY{p}{(} \PY{n}{mypie}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{1.2}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Second Ring (Inside)}
+         \PY{n}{mypie2}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{ax}\PY{o}{.}\PY{n}{pie}\PY{p}{(}\PY{n}{subgroup\PYZus{}size}\PY{p}{,} \PY{n}{radius}\PY{o}{=}\PY{l+m+mf}{1.6}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{subgroup\PYZus{}names}\PY{p}{,} \PY{n}{labeldistance}\PY{o}{=}\PY{l+m+mf}{0.7}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{n}{subcolors}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{setp}\PY{p}{(} \PY{n}{mypie2}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{margins}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} show it}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<Figure size 720x720 with 0 Axes>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<Figure size 1440x1440 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Hypotheses Testing
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k+kn}{import} \PY{n+nn}{random}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{norm}
+         \PY{k+kn}{from} \PY{n+nn}{math} \PY{k}{import} \PY{n}{sqrt}
+         \PY{n}{col1}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user\PYZus{}rating}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{list1}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{k}{while}\PY{p}{(}\PY{n}{i}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+             \PY{k}{try}\PY{p}{:}
+                 \PY{n}{list1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{at}\PY{p}{[}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{6000}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user\PYZus{}rating}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{i} \PY{o}{=} \PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}
+             \PY{k}{except}\PY{p}{:}
+                 \PY{k}{continue}
+         \PY{k}{def} \PY{n+nf}{one\PYZus{}sided\PYZus{}hypo}\PY{p}{(}\PY{n}{sample\PYZus{}mean}\PY{p}{,} \PY{n}{pop\PYZus{}mean}\PY{p}{,} \PY{n}{std\PYZus{}dev}\PY{p}{,} \PY{n}{sample\PYZus{}size}\PY{p}{,} \PY{n}{alpha}\PY{p}{)}\PY{p}{:}
+             \PY{n}{actual\PYZus{}z} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{norm}\PY{o}{.}\PY{n}{ppf}\PY{p}{(}\PY{n}{alpha}\PY{p}{)}\PY{p}{)}
+             \PY{n}{hypo\PYZus{}z} \PY{o}{=} \PY{p}{(}\PY{n}{sample\PYZus{}mean} \PY{o}{\PYZhy{}} \PY{n}{pop\PYZus{}mean}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{std\PYZus{}dev}\PY{o}{/}\PY{n}{sqrt}\PY{p}{(}\PY{n}{sample\PYZus{}size}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual z value :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{actual\PYZus{}z}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hypothesis z value :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hypo\PYZus{}z}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{if} \PY{n}{hypo\PYZus{}z} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{actual\PYZus{}z}\PY{p}{:}
+                 \PY{k}{return} \PY{k+kc}{True}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{k+kc}{False}
+             
+         \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.05}
+         \PY{n}{sample\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{list1}\PY{p}{)}
+         \PY{n}{pop\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{col1}\PY{p}{)}
+         \PY{n}{sample\PYZus{}size} \PY{o}{=}  \PY{l+m+mi}{1000}
+         \PY{n}{std\PYZus{}dev} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{list1}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sample mean=}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{sample\PYZus{}mean}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Standard Deviation=}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{std\PYZus{}dev}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Population mean=}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{pop\PYZus{}mean}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sample Size=}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{sample\PYZus{}size}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H0 : μ \PYZlt{}=}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pop\PYZus{}mean}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H1 : μ \PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pop\PYZus{}mean}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alpha value is :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{r} \PY{o}{=} \PY{n}{one\PYZus{}sided\PYZus{}hypo}\PY{p}{(}\PY{n}{sample\PYZus{}mean}\PY{p}{,} \PY{n}{pop\PYZus{}mean}\PY{p}{,} \PY{n}{std\PYZus{}dev}\PY{p}{,} \PY{n}{sample\PYZus{}size}\PY{p}{,} \PY{n}{alpha}\PY{p}{)}
+         \PY{k}{if} \PY{n}{r}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reject NULL hypothesis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{k}{else}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Failed to reject NULL hypothesis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Sample mean= 3.7405
+Standard Deviation= 1.3507071296176683
+Population mean= 3.526970665925205
+Sample Size= 1000
+H0 : μ <= 3.526970665925205
+H1 : μ > 3.526970665925205
+alpha value is : 0.05 
+
+actual z value : 1.6448536269514729
+hypothesis z value : 4.999152133938078 
+
+Reject NULL hypothesis
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:}            id                                         track\_name  size\_mb  \textbackslash{}
+         0   281656475                                    PAC-MAN Premium       96   
+         1   281796108                          Evernote - stay organized      151   
+         2   281940292    WeatherBug - Local Weather, Radar, Maps, Alerts       95   
+         3   282614216  eBay: Best App to Buy, Sell, Save! Online Shop{\ldots}      122   
+         4   282935706                                              Bible       88   
+         5   283619399                                   Shanghai Mahjong        9   
+         6   283646709             PayPal - Send and request money safely      217   
+         7   284035177                            Pandora - Music \& Radio      124   
+         8   284666222                        PCalc - The Best Calculator       46   
+         9   284736660                                        Ms. PAC-MAN       66   
+         10  284791396                          Solitaire by MobilityWare       47   
+         11  284815117                                   SCRABBLE Premium      217   
+         12  284815942               Google – Search made just for mobile      171   
+         13  284847138                   Bank of America - Mobile Banking      153   
+         14  284862767                                           FreeCell       52   
+         15  284876795             TripAdvisor Hotels Flights Restaurants      198   
+         16  284882215                                           Facebook      371   
+         17  284910350     Yelp - Nearby Restaurants, Shopping \& Services      159   
+         19  284993459  Shazam - Discover music, artists, videos \& lyrics      140   
+         20  285005463                      Crash Bandicoot Nitro Kart 3D       10   
+         21  285946052                                             iQuran       67   
+         22  285994151                                        :) Sudoku +        5   
+         23  286058814    Yahoo Sports - Teams, Scores, News \& Highlights      124   
+         24  286070473                          Mileage Log | Fahrtenbuch       67   
+         26  286799607                        Cleartune - Chromatic Tuner       10   
+         27  286906691          Lifesum – Inspiring healthy lifestyle app      179   
+         28  286911400                                           Hangman.        4   
+         30  288113403      iTranslate - Language Translator \& Dictionary      274   
+         31  288120394                                           TouchOSC        4   
+         32  288419283                                         RadarScope      164   
+         33  288429040                                           LinkedIn      261   
+         34  289084315                              Period Tracker Deluxe       38   
+         35  289446241                                  Election 2016 Map        2   
+         36  289523017                          Blackjack by MobilityWare      100   
+         38  289894882                                        White Noise       42   
+         39  290638154          iHeartRadio – Free Music \& Radio Stations      111   
+         40  290807369                                  Line Rider iRide™        1   
+         41  290986013                      Deliveries: a package tracker       28   
+         42  291430598                                      Hurricane Pro       28   
+         46  292421271                                       Fieldrunners       63   
+         47  292628469                                         Juxtaposer       43   
+         48  292738169  Deezer - Listen to your Favorite Music \& Playl{\ldots}      121   
+         49  293118835                                           iStellar       42   
+         50  293523031                                   Sonos Controller      102   
+         51  293573778                                          Avertinoo        7   
+         52  293622097                                       Google Earth       35   
+         53  293760823               iFart - The Original Fart Sounds App       57   
+         54  293778748                                            PAC-MAN       96   
+         56  294056623                                  FOX Sports Mobile       69   
+         57  294536447                                First Words Animals       30   
+         
+            currency  price  rating\_count\_tot  rating\_count\_ver  user\_rating  \textbackslash{}
+         0       USD   3.99             21292                26          4.0   
+         1       USD   0.00            161065                26          4.0   
+         2       USD   0.00            188583              2822          3.5   
+         3       USD   0.00            262241               649          4.0   
+         4       USD   0.00            985920              5320          4.5   
+         5       USD   0.99              8253              5516          4.0   
+         6       USD   0.00            119487               879          4.0   
+         7       USD   0.00           1126879              3594          4.0   
+         8       USD   9.99              1117                 4          4.5   
+         9       USD   3.99              7885                40          4.0   
+         10      USD   4.99             76720              4017          4.5   
+         11      USD   7.99            105776               166          3.5   
+         12      USD   0.00            479440               203          3.5   
+         13      USD   0.00            119773              2336          3.5   
+         14      USD   4.99              6340               668          4.5   
+         15      USD   0.00             56194                87          4.0   
+         16      USD   0.00           2974676               212          3.5   
+         17      USD   0.00            223885              3726          4.0   
+         19      USD   0.00            402925               136          4.0   
+         20      USD   2.99             31456              4178          4.0   
+         21      USD   1.99              2929               966          4.5   
+         22      USD   2.99             11447               781          5.0   
+         23      USD   0.00            137951               131          4.0   
+         24      USD   5.99                 8                 0          4.5   
+         26      USD   3.99              3241               297          4.0   
+         27      USD   0.00              5795                12          3.5   
+         28      USD   0.00             42316               248          3.0   
+         30      USD   0.00            123215                25          3.5   
+         31      USD   4.99               782                 7          4.0   
+         32      USD   9.99              3449                23          4.0   
+         33      USD   0.00             71856                62          3.5   
+         34      USD   1.99             13350               489          4.5   
+         35      USD   0.99               137                 0          3.0   
+         36      USD   0.00            180087              1101          3.5   
+         38      USD   0.99             33426               299          4.0   
+         39      USD   0.00            293228               110          4.0   
+         40      USD   1.99             21609                69          3.5   
+         41      USD   4.99              4684                10          4.0   
+         42      USD   2.99              2104                 0          4.5   
+         46      USD   2.99             41633                 6          4.0   
+         47      USD   2.99              3610                 7          4.5   
+         48      USD   0.00              4677                12          3.0   
+         49      USD   3.99                30                 0          3.5   
+         50      USD   0.00             48905              2691          4.5   
+         51      USD   4.99                32                 0          3.0   
+         52      USD   0.00            446185              1359          3.5   
+         53      USD   1.99             21825                10          3.0   
+         54      USD   0.00            508808                99          3.0   
+         56      USD   0.00             57500               103          3.0   
+         57      USD   1.99              2576                 4          4.0   
+         
+             user\_rating\_ver         ver cont\_rating        prime\_genre  \textbackslash{}
+         0               4.5       6.3.5          4+              Games   
+         1               3.5       8.2.2          4+       Productivity   
+         2               4.5       5.0.0          4+            Weather   
+         3               4.5      5.10.0         12+           Shopping   
+         4               5.0       7.5.1          4+          Reference   
+         5               4.0         1.8          4+              Games   
+         6               4.5      6.12.0          4+            Finance   
+         7               4.5       8.4.1         12+              Music   
+         8               5.0       3.6.6          4+          Utilities   
+         9               4.0       4.0.4          4+              Games   
+         10              4.5      4.10.1          4+              Games   
+         11              2.5      5.19.0          4+              Games   
+         12              4.0        27.0         17+          Utilities   
+         13              4.5       7.3.8          4+            Finance   
+         14              4.5       4.0.3          4+              Games   
+         15              3.5        21.1          4+             Travel   
+         16              3.5        95.0          4+  Social Networking   
+         17              4.5     11.15.0         12+             Travel   
+         19              4.5      11.0.3         12+              Music   
+         20              3.5       1.0.0          4+              Games   
+         21              4.5         3.3          4+          Reference   
+         22              5.0       5.2.6          4+              Games   
+         23              4.5         6.9          4+             Sports   
+         24              0.0       9.0.5          4+           Business   
+         26              4.0       2.1.3          4+              Music   
+         27              4.0       8.4.1          4+   Health \& Fitness   
+         28              3.5       2.0.6          9+              Games   
+         30              5.0      10.5.4          4+       Productivity   
+         31              3.5       1.9.8          4+              Music   
+         32              4.5       3.4.1          4+            Weather   
+         33              4.5      9.1.32          4+  Social Networking   
+         34              5.0         9.6         12+   Health \& Fitness   
+         35              0.0         5.0          4+      Entertainment   
+         36              4.5       5.5.3         12+              Games   
+         38              5.0         7.2          4+   Health \& Fitness   
+         39              3.0       8.0.0         12+              Music   
+         40              2.5         2.4          9+      Entertainment   
+         41              4.0       8.0.3          4+          Utilities   
+         42              0.0         5.2         17+            Weather   
+         46              3.0  1.7.177604          9+              Games   
+         47              5.0       3.8.2          4+      Photo \& Video   
+         48              4.0      6.19.0         12+              Music   
+         49              0.0       2.9.0          4+         Navigation   
+         50              4.5         7.2          4+              Music   
+         51              0.0       3.9.2          4+         Navigation   
+         52              3.5       7.1.6          4+             Travel   
+         53              4.0       4.0.8          9+      Entertainment   
+         54              4.5       6.3.5          4+              Games   
+         56              4.0      3.5.13          4+             Sports   
+         57              5.0         7.0          4+              Games   
+         
+             sup\_devices.num  ipadSc\_urls.num  lang.num  vpp\_lic  game\_enab  \textbackslash{}
+         0                38                5        10        1          0   
+         1                37                5        23        1          0   
+         2                37                5         3        1          0   
+         3                37                5         9        1          0   
+         4                37                5        45        1          0   
+         5                47                5         1        1          0   
+         6                37                0        19        1          0   
+         7                37                4         1        1          0   
+         8                37                5         1        1          0   
+         9                38                0        10        1          0   
+         10               38                4        11        1          0   
+         11               37                0         6        1          0   
+         12               37                4        33        1          0   
+         13               37                0         2        1          0   
+         14               38                5         2        1          0   
+         15               37                1        26        1          0   
+         16               37                1        29        1          0   
+         17               37                5        18        1          0   
+         19               37                3        16        1          0   
+         20               47                0         1        1          0   
+         21               43                0         2        1          0   
+         22               40                5         1        1          0   
+         23               37                2         6        1          0   
+         24               37                5         3        1          0   
+         26               43                2        10        1          0   
+         27               37                5        11        1          0   
+         28               38                0         1        1          0   
+         30               37                5        23        1          0   
+         31               43                1         1        1          0   
+         32               37                5         1        1          0   
+         33               37                2        23        1          0   
+         34               38                0        15        1          0   
+         35               37                1         1        1          0   
+         36               37                5         5        1          0   
+         38               37                5         3        1          0   
+         39               37                5         2        1          0   
+         40               40                0         1        1          0   
+         41               37                4         9        1          0   
+         42               37                0         1        1          0   
+         46               37                0         1        1          0   
+         47               37                5         1        1          0   
+         48               37                5        21        1          0   
+         49               37                0         2        0          0   
+         50               37                4        12        1          0   
+         51               38                5         7        1          0   
+         52               43                5        30        1          0   
+         53               37                5         1        1          0   
+         54               38                5        10        1          0   
+         56               37                0         1        0          0   
+         57               38                5         1        1          0   
+         
+               broad\_genre category  
+         0           Games     Paid  
+         1          Others     Free  
+         2          Others     Free  
+         3          Others     Free  
+         4          Others     Free  
+         5           Games     Paid  
+         6          Others     Free  
+         7          Others     Free  
+         8          Others     Paid  
+         9           Games     Paid  
+         10          Games     Paid  
+         11          Games     Paid  
+         12         Others     Free  
+         13         Others     Free  
+         14          Games     Paid  
+         15         Others     Free  
+         16         Others     Free  
+         17         Others     Free  
+         19         Others     Free  
+         20          Games     Paid  
+         21         Others     Paid  
+         22          Games     Paid  
+         23         Others     Free  
+         24         Others     Paid  
+         26         Others     Paid  
+         27         Others     Free  
+         28          Games     Free  
+         30         Others     Free  
+         31         Others     Paid  
+         32         Others     Paid  
+         33         Others     Free  
+         34         Others     Paid  
+         35  Entertainment     Paid  
+         36          Games     Free  
+         38         Others     Paid  
+         39         Others     Free  
+         40  Entertainment     Paid  
+         41         Others     Paid  
+         42         Others     Paid  
+         46          Games     Paid  
+         47  Photo \& Video     Paid  
+         48         Others     Free  
+         49         Others     Paid  
+         50         Others     Free  
+         51         Others     Paid  
+         52         Others     Free  
+         53  Entertainment     Paid  
+         54          Games     Free  
+         56         Others     Free  
+         57          Games     Paid  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{top\PYZus{}trending\PYZus{}paid\PYZus{}apps} \PY{o}{=} \PY{n}{trend\PYZus{}ratings}\PY{p}{[}\PY{p}{(}\PY{n}{trend\PYZus{}ratings}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{prime\PYZus{}genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{!=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Games}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{trend\PYZus{}ratings}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{!=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}
+        \PY{n}{top\PYZus{}trending\PYZus{}paid\PYZus{}apps}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
